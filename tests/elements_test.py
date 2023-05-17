@@ -56,3 +56,27 @@ class TestElements:
             web_table_page.search_some_person(keyword)
             table_result = web_table_page.check_search_person()
             assert keyword in table_result, 'Person was not found in table result'
+
+        def test_web_table_update_person_info(self, driver):
+            web_table_page = WebTablePage(driver, 'https://demoqa.com/webtables')
+            web_table_page.open()
+            lastname = web_table_page.add_new_person()[1]
+            web_table_page.search_some_person(lastname)
+            age = web_table_page.update_person_info()
+            row = web_table_page.check_search_person()
+            assert age in row, 'Person info has not been changed'
+
+        def test_web_table_delete_person(self, driver):
+            web_table_page = WebTablePage(driver, 'https://demoqa.com/webtables')
+            web_table_page.open()
+            email = web_table_page.add_new_person()[3]
+            web_table_page.search_some_person(email)
+            web_table_page.delete_person()
+            text = web_table_page.check_person_deletion()
+            assert text == 'No rows found', 'Person has not been deleted'
+
+        def test_web_table_change_row_count(self, driver):
+            web_table_page = WebTablePage(driver, 'https://demoqa.com/webtables')
+            web_table_page.open()
+            count = web_table_page.select_up_to_some_rows()
+            assert count == [5, 10, 20, 25, 50, 100], 'Number of rows has not been changed or changed incorrectly'
