@@ -1,6 +1,6 @@
 import random
 
-from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage, ButtonsPage
 
 
 class TestElements:
@@ -80,3 +80,14 @@ class TestElements:
             web_table_page.open()
             count = web_table_page.select_up_to_some_rows()
             assert count == [5, 10, 20, 25, 50, 100], 'Number of rows has not been changed or changed incorrectly'
+
+    class TestButtonsPage:
+        def test_different_click_on_the_buttons(self, driver):
+            buttons_page = ButtonsPage(driver, 'https://demoqa.com/buttons')
+            buttons_page.open()
+            double = buttons_page.click_on_different_button('double')
+            right = buttons_page.click_on_different_button('right')
+            click = buttons_page.click_on_different_button('click')
+            assert double == 'You have done a double click', 'Double Click Button was not pressed'
+            assert right == 'You have done a right click', 'Right Click Button was not pressed'
+            assert click == 'You have done a dynamic click', 'Dynamic Click Button was not pressed'
