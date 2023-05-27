@@ -19,3 +19,10 @@ def generated_person():
         current_address=faker_ru.address(),
         permanent_address=faker_ru.address(),
     )
+
+
+def generated_file():
+    path = rf'D:\gitrep\DemoQA-Test-Framework\testfile{random.randint(0, 999)}.txt'
+    with open(path, 'w+') as test_file:
+        test_file.write(f'Hello World{random.randint(0, 999)}')
+    return test_file.name, path
