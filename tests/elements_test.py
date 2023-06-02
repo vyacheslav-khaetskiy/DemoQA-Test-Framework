@@ -46,8 +46,6 @@ class TestElements:
             web_table_page.open()
             new_person = web_table_page.add_new_person()
             table_result = web_table_page.check_new_added_person()
-            print(new_person)
-            print(table_result)
             assert new_person in table_result, 'New person is not in table result'
 
         def test_web_table_search_person(self, driver):
