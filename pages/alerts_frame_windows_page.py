@@ -3,7 +3,7 @@ import time
 
 from generator.generator import faker_ru
 from locators.alerts_frame_windows_locators import BrowserWindowsPageLocators, AlertsPageLocators, FramesPageLocators, \
-    NestedFramesPageLocators
+    NestedFramesPageLocators, ModalDialogsPageLocators
 from pages.base_page import BasePage
 
 
@@ -87,3 +87,21 @@ class NestedFramesPage(BasePage):
         self.driver.switch_to.frame(child_frame)
         child_text = self.element_is_present(self.locators.CHILD_TEXT).text
         return parent_text, child_text
+
+
+class ModalDialogsPage(BasePage):
+    locators = ModalDialogsPageLocators()
+
+    def check_modal_dialogs(self):
+        # Small Modal interactions
+        self.element_is_visible(self.locators.SMALL_MODAL_BUTTON).click()
+        small_title = self.element_is_visible(self.locators.SMALL_MODAL_TITLE).text
+        small_body_text = self.element_is_visible(self.locators.SMALL_MODAL_BODY).text
+        self.element_is_visible(self.locators.CLOSE_SMALL_MODAL_BUTTON).click()
+
+        # Large Modal interactions
+        self.element_is_visible(self.locators.LARGE_MODAL_BUTTON).click()
+        large_title = self.element_is_visible(self.locators.LARGE_MODAL_TITLE).text
+        large_body_text = self.element_is_visible(self.locators.LARGE_MODAL_BODY).text
+
+        return [small_title, len(small_body_text)], [large_title, len(large_body_text)]
