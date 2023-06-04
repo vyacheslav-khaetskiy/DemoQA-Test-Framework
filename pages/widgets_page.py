@@ -6,7 +6,7 @@ from selenium.webdriver.support.select import Select
 
 from generator.generator import generated_color, generated_date
 from locators.widgets_page_locators import AccordianPageLocators, AutoCompletePageLocators, DatePickerPageLocators, \
-    SliderPageLocators, ProgressBarPageLocators
+    SliderPageLocators, ProgressBarPageLocators, TabsPageLocators
 from pages.base_page import BasePage
 
 
@@ -130,3 +130,22 @@ class ProgressBarPage(BasePage):
         value_after = self.element_is_present(self.locators.PROGRESS_BAR_VALUE).text
         return value_before, value_after
 
+
+class TabsPage(BasePage):
+    locators = TabsPageLocators()
+
+    def check_tabs(self, tab_name):
+        tabs = {'what': {'title': self.locators.TABS_WHAT,
+                         'content': self.locators.TABS_WHAT_CONTENT},
+                'origin': {'title': self.locators.TABS_ORIGIN,
+                           'content': self.locators.TABS_ORIGIN_CONTENT},
+                'use': {'title': self.locators.TABS_USE,
+                        'content': self.locators.TABS_USE_CONTENT},
+                'more': {'title': self.locators.TABS_MORE,
+                         'content': self.locators.TABS_MORE_CONTENT},
+                }
+
+        tab = self.element_is_visible(tabs[tab_name]['title'])
+        tab.click()
+        content = self.element_is_visible(tabs[tab_name]['content']).text
+        return tab.text, len(content)
