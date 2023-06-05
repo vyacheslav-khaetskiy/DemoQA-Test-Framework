@@ -78,3 +78,7 @@ class ToolTipsPageLocators:
     SECTIONS_LINK_TOOLTIP = (By.CSS_SELECTOR, 'a[aria-describedby="sectionToolTip"]')
 
     TOOLTIP_INNERS = (By.CSS_SELECTOR, 'div[class="tooltip-inner"]')
+
+
+class MenuPageLocators:
+    MENU_ITEM_LIST = (By.CSS_SELECTOR, 'ul[id="nav"] li a')

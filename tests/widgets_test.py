@@ -1,5 +1,5 @@
 from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage, SliderPage, ProgressBarPage, TabsPage, \
-    ToolTipsPage
+    ToolTipsPage, MenuPage
 
 
 class TestWidgets:
@@ -76,13 +76,13 @@ class TestWidgets:
             origin_tab, origin_content = tabs_page.check_tabs('origin')
             use_tab, use_content = tabs_page.check_tabs('use')
             more_tab, more_content = tabs_page.check_tabs('more')
-            assert what_tab == 'What' and what_content != 0,\
+            assert what_tab == 'What' and what_content != 0, \
                 'What Tab has not been pressed or corresponding text is missing'
-            assert origin_tab == 'Origin' and origin_content != 0,\
+            assert origin_tab == 'Origin' and origin_content != 0, \
                 'Origin Tab has not been pressed or corresponding text is missing'
-            assert use_tab == 'Use' and use_content != 0,\
+            assert use_tab == 'Use' and use_content != 0, \
                 'Use Tab has not been pressed or corresponding text is missing'
-            assert more_tab == 'More' and more_content != 0,\
+            assert more_tab == 'More' and more_content != 0, \
                 'More Tab has not been pressed or corresponding text is missing'
 
     class TestToolTipsPage:
@@ -95,3 +95,11 @@ class TestWidgets:
             assert field_tooltip_text == 'You hovered over the text field', 'Tooltip is missing or has incorrect text'
             assert contrary_tooltip_text == 'You hovered over the Contrary', 'Tooltip is missing or has incorrect text'
             assert sections_tooltip_text == 'You hovered over the 1.10.32', 'Tooltip is missing or has incorrect text'
+
+    class TestMenuPage:
+        def test_menu_items(self, driver):
+            menu_page = MenuPage(driver, 'https://demoqa.com/menu')
+            menu_page.open()
+            data = menu_page.check_menu()
+            assert data == ['Main Item 1', 'Main Item 2', 'Sub Item', 'Sub Item', 'SUB SUB LIST »',
+                            'Sub Sub Item 1', '', 'Main Item 3'], 'Menu Items do not exist or have not been selected'
