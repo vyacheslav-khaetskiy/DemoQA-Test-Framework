@@ -1,11 +1,16 @@
 import random
 
+import allure
+
 from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage, ButtonsPage, LinksPage, \
     UploadDownloadPage, DynamicPropertiesPage
 
 
+@allure.suite('Elements')
 class TestElements:
+    @allure.feature('TextBox')
     class TestTextBox:
+        @allure.title('Check TextBox')
         def test_text_box(self, driver):
             text_box_page = TextBoxPage(driver, 'https://demoqa.com/text-box')
             text_box_page.open()
@@ -16,7 +21,9 @@ class TestElements:
             assert current_address == output_cur_addr, 'Current address does not match'
             assert permanent_address == output_perm_addr, 'Permanent address does not match'
 
+    @allure.feature('CheckBox')
     class TestCheckBox:
+        @allure.title('Check CheckBox')
         def test_check_box(self, driver):
             check_box_page = CheckBoxPage(driver, 'https://demoqa.com/checkbox')
             check_box_page.open()
@@ -26,7 +33,9 @@ class TestElements:
             output_result = check_box_page.get_output_result()
             assert input_checkbox == output_result, 'Input and Output does not match'
 
+    @allure.feature('RadioButton')
     class TestRadioButton:
+        @allure.title('Check RadioButton')
         def test_radio_button(self, driver):
             radio_button_page = RadioButtonPage(driver, 'https://demoqa.com/radio-button')
             radio_button_page.open()
@@ -40,7 +49,9 @@ class TestElements:
             assert output_impressive == '"Impressive" have not been selected'
             assert output_no == '"No" have not been selected'
 
+    @allure.feature('WebTable')
     class TestWebTable:
+        @allure.title('Check WebTable')
         def test_web_table_add_person(self, driver):
             web_table_page = WebTablePage(driver, 'https://demoqa.com/webtables')
             web_table_page.open()
@@ -48,6 +59,7 @@ class TestElements:
             table_result = web_table_page.check_new_added_person()
             assert new_person in table_result, 'New person is not in table result'
 
+        @allure.title('Check WebTableSearchPerson')
         def test_web_table_search_person(self, driver):
             web_table_page = WebTablePage(driver, 'https://demoqa.com/webtables')
             web_table_page.open()
@@ -56,6 +68,7 @@ class TestElements:
             table_result = web_table_page.check_search_person()
             assert keyword in table_result, 'Person was not found in table result'
 
+        @allure.title('Check WebTable')
         def test_web_table_update_person_info(self, driver):
             web_table_page = WebTablePage(driver, 'https://demoqa.com/webtables')
             web_table_page.open()
@@ -80,6 +93,7 @@ class TestElements:
             count = web_table_page.select_up_to_some_rows()
             assert count == [5, 10, 20, 25, 50, 100], 'Number of rows has not been changed or changed incorrectly'
 
+    @allure.feature('Buttons')
     class TestButtonsPage:
         def test_different_click_on_the_buttons(self, driver):
             buttons_page = ButtonsPage(driver, 'https://demoqa.com/buttons')
@@ -91,6 +105,7 @@ class TestElements:
             assert right == 'You have done a right click', 'Right Click Button was not pressed'
             assert click == 'You have done a dynamic click', 'Dynamic Click Button was not pressed'
 
+    @allure.feature('Links')
     class TestLinksPage:
         def test_check_link(self, driver):
             links_page = LinksPage(driver, 'https://demoqa.com/links')
